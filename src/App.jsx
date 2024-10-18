@@ -1,5 +1,33 @@
 import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import ContactForm from './components/ContactForm/ContactForm';
+import ContactList from './components/ContactList/ContactList';
+import SearchBox from './components/SearchBox/SearchBox';
+import Loader from './components/Loader/Loader';
 
-function App() {}
+import { selectError, selectLoading } from './redux/contactsSlice';
+import { useEffect } from 'react';
+import { fetchContacts } from './redux/contactsOps';
+
+function App() {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectLoading);
+  const errorMessage = useSelector(selectError);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+  return (
+    <>
+      <div className="appWrap">
+        <h1 className="appTitle">Phonebook</h1>
+        <ContactForm />
+        <SearchBox />
+        {isLoading && !errorMessage && <Loader />}
+        <ContactList />
+      </div>
+    </>
+  );
+}
 
 export default App;

@@ -2,9 +2,9 @@ import s from './Contact.module.css';
 import { ImPhone } from 'react-icons/im';
 import { FaUser } from 'react-icons/fa6';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from '../../redux/contactsSlice';
+import { deleteContact } from '../../redux/contactsOps';
 
-const Contact = ({ name, number, id }) => {
+const Contact = ({ data: { id, name, number } }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
